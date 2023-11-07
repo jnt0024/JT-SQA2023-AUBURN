@@ -1,0 +1,3 @@
+- Completed First Activity: Unpack the Project 11/6/2023
+- Completed Second Activity: Upload Project as Github repo: 11/6/2023
+- Completed Third Activity: Create ReadMe 11/6/2023
