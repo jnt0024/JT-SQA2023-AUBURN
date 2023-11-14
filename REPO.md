@@ -1,3 +1,4 @@
 - Completed First Activity: Unpack the Project 11/6/2023
 - Completed Second Activity: Upload Project as Github repo: 11/6/2023
 - Completed Third Activity: Create ReadMe 11/6/2023
+- Completed 4a: 11/13/2023. Lessons Learned: That by adding the -f argument to bandit you can output the report in the way that you want. I also learned that yaml files take any console commands (including git commands) which is very useful. I also learned that there are premade github hook repos that are useufl for future projects.
