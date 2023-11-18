@@ -4,6 +4,7 @@ May 03, 2021
 Code to detect security anti-patterns 
 '''
 import parser
+import myLogger
 import constants 
 import graphtaint 
 import os 
@@ -61,61 +62,89 @@ helm_chart = []
 k8s_yaml =[]
 
 def getYAMLFiles(path_to_dir):
+    scannerLogger = myLogger.createLoggerObj()
     valid_  = [] 
+    scannerLogger.info("Initiating YAML Fetch...")
+    scannerLogger.info('Inputted YAML Directory: %s', str(path_to_dir))
     for root_, dirs, files_ in os.walk( path_to_dir ):
        for file_ in files_:
            full_p_file = os.path.join(root_, file_)
            if(os.path.exists(full_p_file)):
              if (full_p_file.endswith( constants.YML_EXTENSION  )  or full_p_file.endswith( constants.YAML_EXTENSION  )  ):
                valid_.append(full_p_file)
+    scannerLogger.info("YAML Fetch Completed")
     return valid_ 
 
 def isValidUserName(uName): 
+    scannerLogger = myLogger.createLoggerObj()
     valid = True
+    scannerLogger.info("Validating Username...")
+    scannerLogger.info('Inputted Username: %s', str(uName))
     if (isinstance( uName , str)  ): 
         if( any(z_ in uName for z_ in constants.FORBIDDEN_USER_NAMES )   ): 
+            scannerLogger.info("Username Invalid")
             valid = False   
-        else: 
+        else:
+            scannerLogger.info("Username Valid") 
             valid = True    
     else: 
+        scannerLogger.info("Username Invalid")
         valid = False   
     return valid
 
 def isValidPasswordName(pName): 
+    scannerLogger = myLogger.createLoggerObj()
     valid = True
+    scannerLogger.info("Validating Password...")
+    scannerLogger.info('Inputted Password: %s', str(pName))
     if (isinstance( pName , str)  ): 
-        if( any(z_ in pName for z_ in constants.FORBIDDEN_PASS_NAMES) )  : 
+        if( any(z_ in pName for z_ in constants.FORBIDDEN_PASS_NAMES) )  :
+            scannerLogger.info("Password Invalid") 
             valid = False  
-        else: 
+        else:
+            scannerLogger.info("Password Valid")  
             valid = True    
-    else: 
+    else:
+        scannerLogger.info("Password Invalid") 
         valid = False               
     return valid
 
 def isValidKey(keyName): 
-    valid = False 
+    scannerLogger = myLogger.createLoggerObj()
+    valid = False
+    scannerLogger.info("Validating Key...")
+    scannerLogger.info('Inputted Key: %s', str(keyName))
     if ( isinstance( keyName, str )  ):
         if( any(z_ in keyName for z_ in constants.LEGIT_KEY_NAMES ) ) : 
-            valid = True   
+            valid = True
+            scannerLogger.info("Key Valid")    
         else: 
-            valid = False     
+            valid = False
+            scannerLogger.info("Key Invalid")      
     else: 
-        valid = False                      
+        valid = False
+        scannerLogger.info("Password Invalid")                       
     return valid    
 
 def checkIfValidSecret(single_config_val):
+    scannerLogger = myLogger.createLoggerObj()
     flag2Ret = False 
+    scannerLogger.info("Validating Secret...")
+    scannerLogger.info('Inputted Secret: %s', str(single_config_val))
     # print(type( single_config_val ), single_config_val  )
     if ( isinstance( single_config_val, str ) ):
         single_config_val = single_config_val.lower()
         config_val = single_config_val.strip() 
         if ( any(x_ in config_val for x_ in constants.INVALID_SECRET_CONFIG_VALUES ) ):
-            flag2Ret = False 
+            flag2Ret = False
+            scannerLogger.info("Secret Invalid")   
         else:
             if(  len(config_val) > 2 )  :
                 flag2Ret = True 
+                scannerLogger.info("Secret Valid")   
     else: 
-        flag2Ret = False 
+        flag2Ret = False
+        scannerLogger.info("Secret Invalid")  
     return flag2Ret
 
 def scanUserName(k_ , val_lis ):
@@ -1005,8 +1034,17 @@ def scanForUnconfinedSeccomp(path_script ):
     return dic  
 
 if __name__ == '__main__':
-    #provide directory to scan
-    dir2scan = r'C:\Users\..'
-    a,b = runScanner(dir2scan)
-    with open("test-scanner.sarif", "w") as f:
-        f.write(b)
+
+    # Adding Forensics to 5 python methods
+    testYaml = r'C:\Users\jnich\OneDrive\Documents\GitHub\JT-SQA2023-AUBURN\TEST_ARTIFACTS\artifact.nfs.server.yaml'
+    testUserName = 'domain'
+    testPassword = '123456'
+    testKey = 'key'
+    testSecretConfig = 2
+
+    getYAMLFiles(testYaml)
+    isValidUserName(testUserName)
+    isValidPasswordName(testPassword)
+    isValidKey(testKey)
+    checkIfValidSecret(testSecretConfig)
+
