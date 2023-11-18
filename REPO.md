@@ -1,6 +1,6 @@
 - Completed First Activity: Unpack the Project 11/6/2023
 - Completed Second Activity: Upload Project as Github repo: 11/6/2023
 - Completed Third Activity: Create ReadMe 11/6/2023
-- Completed 4a: 11/13/2023: Researched how to add bandit reporting to the projectand implemented it Lessons Learned: That by adding the -f argument to bandit you can output the report in the way that you want. I also learned that yaml files take any console commands (including git commands) which is very useful. I also learned that there are premade github hook repos that are useufl for future projects.
+- Completed 4a: 11/13/2023: Researched how to add bandit reporting to the projectand implemented it. Now the static analysis file is saved in the band_report.csv. Lessons Learned: That by adding the -f argument to bandit you can output the report in the way that you want. I also learned that yaml files take any console commands (including git commands) which is very useful. I also learned that there are premade github hook repos that are useufl for future projects.
 - Completed 4b: 11/17/2023: Created the fuzz.py file and added fuzzing for 5 python methods in the scanner.py file Lessons Learned: Finding different ways to add unknown inputs and trying to break the system.
 - Completed 4c: 11/18/2023: Added logging to 5 python methods in the scanner.py file Lessons Learned: Log files don't get show up in the git commits.
